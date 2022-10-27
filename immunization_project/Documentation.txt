@@ -1,0 +1,14 @@
+Instructions
+--------------
+1. install django
+2. install djongo
+3. install pytz
+4. install dnspython
+5. intsall pymongo==3.12.3
+
+ACCOUNT IS: profwainaina
+Create database in mongodb named  : smart-immunization-db
+Create collection in mongodb named : smart-immunization-collection
+
+Create a user name: wainaina
+Add password : 1234
