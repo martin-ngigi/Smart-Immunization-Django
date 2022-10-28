@@ -5,23 +5,23 @@ from django.shortcuts import render
 from dataclasses import dataclass
 from django.http import JsonResponse
 from django.urls import is_valid_path
-from .models import MyUser
-from .serializers import MyUserSerializer
+from .models import Immunizations
+from .serializers import ImmunizationsSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
 #either fetch or create
 @api_view(['GET', 'POST'])
-def user_list(request, format=None):
+def immn_list(request, format=None):
     # fetch data
     if request.method == 'GET':
         # get python data
         # serialize it
         # return json data
 
-        myUsers = MyUser.objects.all()
-        serializer = MyUserSerializer(myUsers, many=True)
+        immn = Immunizations.objects.all()
+        serializer = ImmunizationsSerializer(immn, many=True)
         return Response(serializer.data)
 
     #create data
@@ -30,7 +30,7 @@ def user_list(request, format=None):
         # deserialize it
         # return python data
 
-        serializer = MyUserSerializer(data = request.data)
+        serializer = ImmunizationsSerializer(data = request.data)
         # validate
         if serializer.is_valid():
             serializer.save()
@@ -38,20 +38,20 @@ def user_list(request, format=None):
 
 # Either fetch, update or delete
 @api_view(['GET', 'PUT', 'DELETE'])
-def user_details(request, email, format=None): #email is from urls.py
+def immn_details(request, id, format=None): #id is from urls.py
     try:
-        myUser = MyUser.objects.get(pk=email)
-    except MyUser.DoesNotExist:
+        immn = Immunizations.objects.get(pk=id)
+    except Immunizations.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
     # Fetch
     if request.method == 'GET':
-        serializer = MyUserSerializer(myUser)
+        serializer = ImmunizationsSerializer(immn)
         return Response(serializer.data)
     
     # Update
     elif request.method == 'PUT':
-        serializer = MyUserSerializer(myUser, data = request.data)
+        serializer = Immunizations(immn, data = request.data)
         # if serialize is valid, then save
         if serializer.is_valid():
             serializer.save()
@@ -61,5 +61,5 @@ def user_details(request, email, format=None): #email is from urls.py
 
     # Delete
     elif request.method == 'DELETE':
-        myUser.delete()
+        immn.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

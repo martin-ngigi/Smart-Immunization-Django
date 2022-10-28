@@ -3,5 +3,5 @@ from accounts import views
 
 urlpatterns = [
     path('users/', views.user_list),
-    path('users/<int:id>/', views.user_details),
+    path('users/<str:email>/', views.user_details),
 ]

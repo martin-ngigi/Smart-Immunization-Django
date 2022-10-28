@@ -93,6 +93,8 @@ CRUD OPERATIONS
 
 
 CRUD OPERATIONS:
+CREATE USER
+---------------
 First makesure server is running by typing:
     python manage.py runserver
 
@@ -134,5 +136,61 @@ PUT -> Update one by ID
 
 DELETE -> 
     http://127.0.0.1:8000/accounts/users/2/ as endpoint, Then click delete
+
+
+
+CREATE IMMUNIZATION
+---------------
+First makesure server is running by typing:
+    python manage.py runserver
+
+POST-> Create or insert afresh:
+    in postman, select POST
+    then paste : http://127.0.0.1:8000/immunization/ as your endpoint.
+    then in the body select row, then select in the text, select JSON
+    and paste the following:
+        {
+            "firstName":"Ken",
+            "lastName":"Wainaina",
+            "email":"ken@gmail.com",
+            "phone":"0712345678",
+            "age":"22",
+            "nationId":99676545,
+            "immunizationName":"JonsonAndJonson",
+            "immunizationDosageLevel": "1",
+            "immunizationDate":"23-11-2022",
+            "nextImmunizationDate":"23-11-2023",
+            "county":"Kiambu"
+        }
+    Then click POST
+
+GET -> Retrieve all data 
+    then paste : http://127.0.0.1:8000/immunization/ as your endpoint.
+    Then select GET
+
+GET - > Retreive one data item by email
+    paste http://127.0.0.1:8000/immunization/ as endpoint
+
+PUT -> Update one by email
+    paste http://127.0.0.1:8000/immunization/ as end point then GET
+    paste the following in the body after selecting raw and in the text select json ... then paste
+        {
+            "firstName":"Ken",
+            "lastName":"Wainaina",
+            "email":"ken@gmail.com",
+            "phone":"0712345678",
+            "age":"22",
+            "nationId":99676545,
+            "immunizationName":"JonsonAndJonson",
+            "immunizationDosageLevel": "1",
+            "immunizationDate":"23-11-2022",
+            "nextImmunizationDate":"23-11-2023",
+            "county":"Kiambu"
+        }
+
+    Then click PUT
+
+DELETE -> 
+    http://127.0.0.1:8000/immunization/ as endpoint, Then click delete
 
 
