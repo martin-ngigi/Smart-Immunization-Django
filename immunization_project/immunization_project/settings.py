@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     #own apps
     'immunization_app',
+    'rest_framework',
+    'accounts',
 ]
 
 MIDDLEWARE = [
