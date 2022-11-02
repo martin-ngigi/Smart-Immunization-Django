@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include("accounts.urls")),
     path('immunization/', include("immunization.urls")),
+    path('', include("accounts2.urls")),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

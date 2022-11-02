@@ -1,0 +1,54 @@
+1. POST -> create user
+endpoint -> http://127.0.0.1:8000/user2/
+body:
+    {
+        "firstName": "Ken",
+        "lastName": "Wainaina",
+        "email": "ken@gmail.com",
+        "phone": "079729229",
+        "password": "12345",
+        "username": "ken",
+        "gender":"M",
+        "age":"23",
+        "nationId": "923722",
+        "county":"Nairobi"
+    }
+
+response :
+    {
+        "id": 2,
+        "immunizations": [],
+        "firstName": "Ken",
+        "lastName": "Wainaina",
+        "email": "ken@gmail.com",
+        "phone": "079729229",
+        "password": "12345",
+        "username": "ken",
+        "gender": "M",
+        "age": "23",
+        "nationId": "923722",
+        "county": "Nairobi"
+    }
+
+POST -> create immunization
+["user": 2] ...... This id must be of an existing user
+endpoint -> http://127.0.0.1:8000/immunization2/
+body: 
+        
+    {
+        "immunizationName": "JSON and JSON",
+        "immunizationDosageLevel": "1st",
+        "immunizationDate": "02-11-2022",
+        "nextImmunizationDate": "02-12-2022",
+        "user": 2
+    }
+
+response:
+    {
+        "id": 2,
+        "user": 2,
+        "immunizationName": "JSON and JSON",
+        "immunizationDosageLevel": "1st",
+        "immunizationDate": "02-11-2022",
+        "nextImmunizationDate": "02-12-2022"
+    }

@@ -6,13 +6,13 @@
 	},
 	"item": [
 		{
-			"name": "Insert MyUsers",
+			"name": "1. Insert MyUsers",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstName\":\"Ken\",\r\n    \"lastName\":\"Wainaina\",\r\n    \"email\":\"ken@gmail.com\",\r\n    \"phone\":\"0712345678\",\r\n    \"password\":\"1234\",\r\n    \"username\":\"ken\"\r\n}",
+					"raw": "{\r\n    \"nationId\":12345,\r\n    \"age\":23,\r\n    \"gender\": \"M\",\r\n    \"firstName\":\"Ken\",\r\n    \"lastName\":\"Wainaina\",\r\n    \"email\":\"ken@gmail.com\",\r\n    \"phone\":\"0712345678\",\r\n    \"password\":\"1234\",\r\n    \"username\":\"ken\",\r\n    \"user_id\":12345\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,7 +39,7 @@
 			"response": []
 		},
 		{
-			"name": "Fetch all Users",
+			"name": "2. Fetch all Users",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -48,7 +48,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"f_name\":\"Martin\",\r\n    \"l_name\":\"Wainaina\",\r\n    \"email\":\"martin@gmail.com\",\r\n    \"phone\":\"0797292290\",\r\n    \"password\":\"M@rtin\",\r\n    \"username\":\"martin\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -75,7 +75,7 @@
 			"response": []
 		},
 		{
-			"name": "Fetch one Users by id",
+			"name": "3. Fetch one Users by email",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -84,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"f_name\":\"Martin\",\r\n    \"l_name\":\"Wainaina\",\r\n    \"email\":\"martin@gmail.com\",\r\n    \"phone\":\"0797292290\",\r\n    \"password\":\"M@rtin\",\r\n    \"username\":\"martin\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -92,7 +92,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/accounts/users/2/",
+					"raw": "http://127.0.0.1:8000/accounts/users/?ken@gmail.com/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -104,21 +104,26 @@
 					"path": [
 						"accounts",
 						"users",
-						"2",
 						""
+					],
+					"query": [
+						{
+							"key": "ken@gmail.com/",
+							"value": null
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update User by id",
+			"name": "3. Update User by id",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 3,\r\n    \"firstName\": \"Ken\",\r\n    \"lastName\": \"Wainaina\",\r\n    \"email\": \"kenwainaina@gmail.com\",\r\n    \"phone\": \"0712345678\",\r\n    \"password\": \"1234\",\r\n    \"username\": \"ken\"\r\n}",
+					"raw": "{\r\n    \"nationId\":12345,\r\n    \"age\":26,\r\n    \"gender\": \"M\",\r\n    \"firstName\":\"Ken\",\r\n    \"lastName\":\"Wainaina\",\r\n    \"email\":\"ken@gmail.com\",\r\n    \"phone\":\"0712345670\",\r\n    \"password\":\"1234\",\r\n    \"username\":\"ken\",\r\n    \"user_id\":12345\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -126,7 +131,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/accounts/users/3/",
+					"raw": "http://127.0.0.1:8000/accounts/users/1/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -138,7 +143,7 @@
 					"path": [
 						"accounts",
 						"users",
-						"3",
+						"1",
 						""
 					]
 				}
@@ -146,7 +151,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete  user",
+			"name": "4. Delete  user",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -164,6 +169,285 @@
 						"accounts",
 						"users",
 						"3",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Insert Immunizations",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"myUser\":1,\r\n    \"nationId\":12345,\r\n    \"immunizationName\":\"JonsonAndJonson\",\r\n    \"immunizationDosageLevel\": \"1\",\r\n    \"immunizationDate\":\"23-11-2022\",\r\n    \"nextImmunizationDate\":\"23-11-2023\",\r\n    \"county\":\"Kiambu\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/immunization/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"immunization",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. fetch all Immunizations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Ken\",\r\n    \"lastName\":\"Wainaina\",\r\n    \"email\":\"ken@gmail.com\",\r\n    \"phone\":\"0712345678\",\r\n    \"age\":\"22\",\r\n    \"nationId\":\"99676545\",\r\n    \"immunizationName\":\"JonsonAndJonson\",\r\n    \"immunizationDosageLevel\": \"1\",\r\n    \"immunizationDate\":\"\",\r\n    \"nextImmunizationDate\":\"\",\r\n    \"county\":\"Kiambu\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/immunization/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"immunization",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. fecth one  Immunizations by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Ken\",\r\n    \"lastName\":\"Wainaina\",\r\n    \"email\":\"ken@gmail.com\",\r\n    \"phone\":\"0712345678\",\r\n    \"age\":\"22\",\r\n    \"nationId\":\"99676545\",\r\n    \"immunizationName\":\"JonsonAndJonson\",\r\n    \"immunizationDosageLevel\": \"1\",\r\n    \"immunizationDate\":\"\",\r\n    \"nextImmunizationDate\":\"\",\r\n    \"county\":\"Kiambu\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/immunization/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"immunization",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. delete one  Immunizations by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\":\"Ken\",\r\n    \"lastName\":\"Wainaina\",\r\n    \"email\":\"ken@gmail.com\",\r\n    \"phone\":\"0712345678\",\r\n    \"age\":\"22\",\r\n    \"nationId\":\"99676545\",\r\n    \"immunizationName\":\"JonsonAndJonson\",\r\n    \"immunizationDosageLevel\": \"1\",\r\n    \"immunizationDate\":\"\",\r\n    \"nextImmunizationDate\":\"\",\r\n    \"county\":\"Kiambu\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/immunization/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"immunization",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.1 Insert Nested User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Ken\",\r\n    \"lastName\": \"Wainaina\",\r\n    \"email\": \"ken@gmail.com\",\r\n    \"phone\": \"079729229\",\r\n    \"password\": \"12345\",\r\n    \"username\": \"ken\",\r\n    \"gender\":\"M\",\r\n    \"age\":\"23\",\r\n    \"nationId\": \"923722\",\r\n    \"county\":\"Nairobi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/user2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2 insert Nested Immunization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"immunizationName\": \"JSON and JSON\",\r\n    \"immunizationDosageLevel\": \"1st\",\r\n    \"immunizationDate\": \"02-11-2022\",\r\n    \"nextImmunizationDate\": \"02-12-2022\",\r\n    \"user\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/immunization2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"immunization2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.3 get All nested users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/user2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"user2",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.4 Get all immunizations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "Bearer test_sk_dvuXn1cc5V5oTvhnuQ4DAFW2Q",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "Authorization",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"emp_id\": 100,\r\n        \"name\": \"Martin Wainaina\",\r\n        \"gender\": \"M\",\r\n        \"designation\": \"User Interface Design\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/immunization2/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"immunization2",
 						""
 					]
 				}
