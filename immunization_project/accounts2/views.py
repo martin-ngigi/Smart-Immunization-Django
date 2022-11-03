@@ -36,7 +36,7 @@ def user_detail(request, pk):
         return HttpResponse(status=404)
         
     if request.method == 'GET':
-        user_serializer = UserSerializer(emp)
+        user_serializer = UserSerializer(user)
         return JsonResponse(user_serializer.data)
     elif request.method == 'DELETE':
         user.delete()
@@ -65,7 +65,7 @@ def user_immunization_detail(request, pk):
         return HTTPResponse(status=404)
         
     if request.method == 'GET':
-        user_immunization_serializer = UserImmunizationSerializer(emptask)
+        user_immunization_serializer = UserImmunizationSerializer(user_immunization)
         return JsonResponse(user_immunization_serializer.data)
         
     elif request.method == 'DELETE':

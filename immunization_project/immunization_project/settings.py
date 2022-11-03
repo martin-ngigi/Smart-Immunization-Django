@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'immunization_app',
     'rest_framework',
     'accounts',
-    'immunization',
     'accounts2',
 ]
 

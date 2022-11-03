@@ -20,7 +20,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include("accounts.urls")),
-    path('immunization/', include("immunization.urls")),
     path('', include("accounts2.urls")),
 ]
 
