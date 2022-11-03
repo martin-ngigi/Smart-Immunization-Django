@@ -13,61 +13,61 @@ from accounts2.models import User, UserImmunization
 from accounts2.serializers import UserSerializer, UserImmunizationSerializer
 
 @csrf_exempt
-def employee_list(request):
+def user_list(request):
     if request.method == 'GET':
-        emp = User.objects.all()
-        emp_serializer = UserSerializer(emp, many=True)
-        return JsonResponse(emp_serializer.data, safe=False)
+        user = User.objects.all()
+        user_serializer = UserSerializer(user, many=True)
+        return JsonResponse(user_serializer.data, safe=False)
         
     elif request.method == 'POST':
-        emp_data = JSONParser().parse(request)
-        emp_serializer = UserSerializer(data=emp_data)
+        user_data = JSONParser().parse(request)
+        user_serializer = UserSerializer(data=user_data)
         
-        if emp_serializer.is_valid():
-            emp_serializer.save()
-            return JsonResponse(emp_serializer.data,status=201)
-        return JsonResponse(emp_serializer.errors,status=400)
+        if user_serializer.is_valid():
+            user_serializer.save()
+            return JsonResponse(user_serializer.data,status=201)
+        return JsonResponse(user_serializer.errors,status=400)
         
 @csrf_exempt
-def employee_detail(request, pk):
+def user_detail(request, pk):
     try:
-        emp = User.objects.get(pk=pk)
+        user = User.objects.get(pk=pk)
     except User.DoesNotExist:
         return HttpResponse(status=404)
         
     if request.method == 'GET':
-        emp_serializer = UserSerializer(emp)
-        return JsonResponse(emp_serializer.data)
+        user_serializer = UserSerializer(emp)
+        return JsonResponse(user_serializer.data)
     elif request.method == 'DELETE':
-        emp.delete()
+        user.delete()
         return HttpResponse(status=204)
 
 
 @csrf_exempt
-def employeetask_list(request):
+def user_immunization_list(request):
     if request.method == 'GET':
-        emptask = UserImmunization.objects.all()
-        emptask_serializer = UserImmunizationSerializer(emptask, many=True)
-        return JsonResponse(emptask_serializer.data, safe=False)
+        user_immunization = UserImmunization.objects.all()
+        user_immunization_serializer = UserImmunizationSerializer(user_immunization, many=True)
+        return JsonResponse(user_immunization_serializer.data, safe=False)
     elif request.method == 'POST':
-        emptask_data = JSONParser().parse(request)
-        emptask_serializer = UserImmunizationSerializer(data=emptask_data)
-        if emptask_serializer.is_valid():
-            emptask_serializer.save()
-            return JsonResponse(emptask_serializer.data,status=201)
-        return JsonResponse(emptask_serializer.errors,status=400)
+        user_immunization_data = JSONParser().parse(request)
+        user_immunization_serializer = UserImmunizationSerializer(data=user_immunization_data)
+        if user_immunization_serializer.is_valid():
+            user_immunization_serializer.save()
+            return JsonResponse(user_immunization_serializer.data,status=201)
+        return JsonResponse(user_immunization_serializer.errors,status=400)
 
 @csrf_exempt
-def employeetask_detail(request, pk):
+def user_immunization_detail(request, pk):
     try:
-        emptask = UserImmunization.objects.get(pk=pk)
+        user_immunization = UserImmunization.objects.get(pk=pk)
     except UserImmunization.DoesNotExist:
         return HTTPResponse(status=404)
         
     if request.method == 'GET':
-        emptask_serializer = UserImmunizationSerializer(emptask)
-        return JsonResponse(emptask_serializer.data)
+        user_immunization_serializer = UserImmunizationSerializer(emptask)
+        return JsonResponse(user_immunization_serializer.data)
         
     elif request.method == 'DELETE':
-        emptask.delete()
+        user_immunization.delete()
         return HttpResponse(status=204)
