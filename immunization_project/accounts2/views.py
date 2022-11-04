@@ -16,6 +16,75 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters import rest_framework as filters
+from rest_framework.views import APIView
+
+from rest_framework.filters import SearchFilter
+from rest_framework.views import APIView
+from rest_framework.generics import RetrieveAPIView
+from rest_framework import viewsets
+from rest_framework import generics
+
+# # MY SIMPLE APIVIEW
+class UserView(APIView):
+    # List all snippets, or create a new snippet.
+    def get(self, request):
+        users = User.objects.all()
+        # the many param informs the serializer that it will be serializing more than a single article.
+        serializer = UserSerializer(users, many=True)
+        return Response({"users": serializer.data})
+
+    def post(self, request, format=None):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserDetail(APIView):
+    """
+    Retrieve, update or delete a snippet instance.
+    """
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except Snippet.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# SERACH BY EMAIL OR PHONE.(can GET, POST,SEARCH)
+class UsersList(generics.ListCreateAPIView):
+    # eg: http://127.0.0.1:8000/user-by-email-or-phone?search=martinwainaina001@gmail.com
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['email', 'password']
+
+# SERACH BY immunizationName
+class ImmunizationLists(generics.ListCreateAPIView):
+    queryset = UserImmunization.objects.all()
+    serializer_class = UserImmunizationSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['immunizationName']
 
 #either fetch or create
 @api_view(['GET', 'POST'])
@@ -49,7 +118,7 @@ def user_list(request, format=None):
 def user_detail(request, pk, format=None): #id is from urls.py
     try:
         user = User.objects.get(pk=pk)
-    except MyUser.DoesNotExist:
+    except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
     # Fetch
@@ -72,67 +141,6 @@ def user_detail(request, pk, format=None): #id is from urls.py
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-'''
-@csrf_exempt
-def user_list1(request):
-    if request.method == 'GET':
-        user = User.objects.all()
-        user_serializer = UserSerializer(user, many=True)
-        return JsonResponse(user_serializer.data, safe=False)
-        
-    elif request.method == 'POST':
-        user_data = JSONParser().parse(request)
-        user_serializer = UserSerializer(data=user_data)
-        
-        if user_serializer.is_valid():
-            user_serializer.save()
-            return JsonResponse(user_serializer.data,status=201)
-        return JsonResponse(user_serializer.errors,status=400)
-        
-@csrf_exempt
-def user_detail1(request, pk):
-    try:
-        user = User.objects.get(pk=pk)
-    except User.DoesNotExist:
-        return HttpResponse(status=404)
-        
-    if request.method == 'GET':
-        user_serializer = UserSerializer(user)
-        return JsonResponse(user_serializer.data)
-    elif request.method == 'DELETE':
-        user.delete()
-        return HttpResponse(status=204)
-
-@csrf_exempt
-def user_immunization_list1(request):
-    if request.method == 'GET':
-        user_immunization = UserImmunization.objects.all()
-        user_immunization_serializer = UserImmunizationSerializer(user_immunization, many=True)
-        return JsonResponse(user_immunization_serializer.data, safe=False)
-    elif request.method == 'POST':
-        user_immunization_data = JSONParser().parse(request)
-        user_immunization_serializer = UserImmunizationSerializer(data=user_immunization_data)
-        if user_immunization_serializer.is_valid():
-            user_immunization_serializer.save()
-            return JsonResponse(user_immunization_serializer.data,status=201)
-        return JsonResponse(user_immunization_serializer.errors,status=400)
-
-
-@csrf_exempt
-def user_immunization_detail1(request, pk):
-    try:
-        user_immunization = UserImmunization.objects.get(pk=pk)
-    except UserImmunization.DoesNotExist:
-        return HTTPResponse(status=404)
-        
-    if request.method == 'GET':
-        user_immunization_serializer = UserImmunizationSerializer(user_immunization)
-        return JsonResponse(user_immunization_serializer.data)
-        
-    elif request.method == 'DELETE':
-        user_immunization.delete()
-        return HttpResponse(status=204)
-'''
 #either fetch or create
 @api_view(['GET', 'POST'])
 def user_immunization_list(request, format=None):
