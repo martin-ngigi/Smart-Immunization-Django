@@ -16,6 +16,7 @@ class User(models.Model):
     age = models.CharField(max_length=3)
     nationId = models.CharField(max_length=8)
     county = models.CharField(max_length=30)
+    registeredDate = models.DateTimeField(auto_now_add=True, blank=True)
     
     class Meta:
         ordering=('nationId',)
@@ -32,6 +33,7 @@ class UserImmunization(models.Model):
     immunizationDate =models.CharField(max_length=20)
     nextImmunizationDate = models.CharField(max_length=30)
     user = models.ForeignKey(User,related_name='immunizations',on_delete=models.CASCADE) #NB: "user", "immunizations" must be the same as the one used in the serializers
+    administeredDate = models.DateTimeField(auto_now_add=True, blank=True)
 
 class Meta:
     ordering = ('immunizationName',)
