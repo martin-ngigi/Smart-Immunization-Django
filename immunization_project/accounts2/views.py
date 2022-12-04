@@ -49,7 +49,7 @@ class UserDetail(APIView):
     def get_object(self, pk):
         try:
             return User.objects.get(pk=pk)
-        except Snippet.DoesNotExist:
+        except User.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):

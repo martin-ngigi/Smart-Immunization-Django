@@ -35,7 +35,7 @@ class UserImmunization(models.Model):
     user = models.ForeignKey(User,related_name='immunizations',on_delete=models.CASCADE) #NB: "user", "immunizations" must be the same as the one used in the serializers
     administeredDate = models.DateTimeField(auto_now_add=True, blank=True)
 
-class Meta:
-    ordering = ('immunizationName',)
-    def __str__(self):
-        return self.immunizationName
+    class Meta:
+        ordering = ('immunizationName',)
+        def __str__(self):
+            return self.immunizationName
